@@ -9,7 +9,21 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'assets',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/api/hr': {
+        // target: 'http://api.woqukaoqin-inc.com/mock/20', // 接口的域名
+        // target: 'http://kq.lishengfei.dev.woqu365.com/', // 接口的域名
+        // target: 'https://hmc.woqu365.com',
+        target: 'https://yuhmc-2.woqu365.com', // 接口的域名
+        // target: 'https://yukq-4.woqu365.com', // 接口的域名
+        // target: 'https://fbkq-4.woqu365.com', // 接口的域名
+        secure: true, // 如果是https接口，需要配置这个参数
+        changeOrigin: true, // 如果接口跨域，需要进行这个参数配置
+        pathRewrite: {
+          '^/api/hr': ''
+        } // 后面可以使重写的新路径，一般不做更改
+      }
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST

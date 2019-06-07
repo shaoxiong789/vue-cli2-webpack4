@@ -5,7 +5,6 @@ const routes = [{
   path: '/',
   name: 'dashboard',
   component: Layout,
-  redirect: '/dashboard',
   children: [{
     path: 'dashboard',
     component: () => import('./views/dashboard')

@@ -23,6 +23,7 @@ chunks.forEach((chunk) => {
     new HtmlWebpackPlugin({
       filename: `${chunk}.html`,
       template: `${path.dirname(entries[chunk])}/template.html`,
+      chunks: [chunk],
       inject: true
     }),
   )
@@ -62,7 +63,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     disableHostCheck: true // 是否禁用检查hostname
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+    // new webpack.HotModuleReplacementPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
     ...htmlPlugins,
     // copy custom static assets
