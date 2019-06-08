@@ -60,43 +60,16 @@ const webpackConfig = merge(baseWebpackConfig, {
     splitChunks: {
       // chunks: "all",
       chunks (chunk) {
-        // exclude `my-excluded-chunk`
-        // Object.values(chunk).forEach((item) => {
-        //   if (typeof item == 'string' && item.indexOf('vendors') !== -1) {
-        //     console.log(item)
-        //   }
-        // })
-        // console.log(chunk, '-----------');
-        return true;
+        return chunk.name != 'excluded-chunk';
       },
-      // name (module, chunks, cacheGroupKey) {
-      //   // generate a chunk name...
-      //   if (cacheGroupKey == 'vendors') {
-      //     // console.log(chunks);
-      //   }
-      //   return; //...
-      // },
       cacheGroups: {
-        // vendors: {
-        //   test: /[\\/]node_modules[\\/]/,
-        //   chunks: 'initial',
-        //   name: 'vendors',
-        //   priority: -10
-        // },
-        // 'async-vendors': {
-        //   name: 'async-vendors',
-        //   minChunks: 2,
-        //   priority: -20,
-        //   chunks: 'async',
-        //   reuseExistingChunk: true
-        // }
-        // commons: {
-        //   chunks: "initial",
-        //   minChunks: 2,
-        //   maxInitialRequests: 5, // The default limit is too small to showcase the effect
-        //   minSize: 0 ,
-        //   name: "vendors"
-        // },
+        'async-vendors': {
+          name: 'async-vendors',
+          minChunks: 2,
+          priority: -20,
+          chunks: 'async',
+          reuseExistingChunk: true
+        },
         vendors: {
           test: /[\\/]node_modules[\\/]/,
           priority: -10
@@ -108,9 +81,9 @@ const webpackConfig = merge(baseWebpackConfig, {
         }
       }
     },
-    // runtimeChunk: {
-    //   name: 'manifest'
-    // },
+    runtimeChunk: {
+      name: 'manifest'
+    },
     minimizer: [
       new UglifyJsPlugin({
         uglifyOptions: {
