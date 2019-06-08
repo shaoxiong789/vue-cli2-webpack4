@@ -62,28 +62,46 @@ const webpackConfig = merge(baseWebpackConfig, {
       chunks (chunk) {
         return chunk.name != 'excluded-chunk';
       },
-      name (module, chunk, cacheGroups) {
+      name (module, chunks, cacheGroups) {
+        // console.log(chunks.length);
+        // console.log(chunks.map((chunk) => {
+        //   return chunk.name
+        // }))
+        return ['vendors'].concat(chunks.map((chunk) => {
+          return chunk.name
+        })).join('~')
         // console.log(module, cacheGroups);
         // return 'xxx'
         // return cacheGroups + '.[name]'
       },
       cacheGroups: {
-        'async-vendors': {
-          name: 'async-vendors',
-          minChunks: 2,
-          priority: -20,
-          chunks: 'async',
-          reuseExistingChunk: true
-        },
-        vendors: {
-          test: /[\\/]node_modules[\\/]/,
-          priority: -10
-        },
-        default: {
-          minChunks: 2,
-          priority: -20,
-          reuseExistingChunk: true
-        }
+        // commons: {
+        //   test: /[\\/]node_modules[\\/]/,
+        //   name: "vendors",
+        //   chunks: "all"
+        // },
+        // commons: {
+        //   test: /[\\/]node_modules[\\/]/,
+        //   name: "vendors",
+        //   chunks: "all",
+        //   minChunks: 1
+        // }
+        // 'async-vendors': {
+        //   name: 'async-vendors',
+        //   minChunks: 2,
+        //   priority: -20,
+        //   chunks: 'async',
+        //   reuseExistingChunk: true
+        // },
+        // vendors: {
+        //   test: /[\\/]node_modules[\\/]/,
+        //   priority: -10
+        // },
+        // default: {
+        //   minChunks: 2,
+        //   priority: -20,
+        //   reuseExistingChunk: true
+        // }
       }
     },
     runtimeChunk: true,
