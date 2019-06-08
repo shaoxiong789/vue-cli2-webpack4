@@ -22,7 +22,7 @@ chunks.forEach((chunk, index) => {
       filename: `${chunk}.html`,
       template: `${path.dirname(entries[chunk])}/template.html`,
       inject: true,
-      chunks: [chunk, 'vendors', 'async-vendors', 'manifest'],
+      // chunks: [chunk, 'vendors', 'async-vendors', 'manifest'],
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -33,7 +33,7 @@ chunks.forEach((chunk, index) => {
         // https://github.com/kangax/html-minifier#options-quick-reference
       },
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      chunksSortMode: 'dependency'
+      // chunksSortMode: 'dependency'
     })
   )
 }) 
@@ -58,7 +58,24 @@ const webpackConfig = merge(baseWebpackConfig, {
   },
   optimization: {
     splitChunks: {
-      chunks: "all",
+      // chunks: "all",
+      chunks (chunk) {
+        // exclude `my-excluded-chunk`
+        // Object.values(chunk).forEach((item) => {
+        //   if (typeof item == 'string' && item.indexOf('vendors') !== -1) {
+        //     console.log(item)
+        //   }
+        // })
+        // console.log(chunk, '-----------');
+        return true;
+      },
+      // name (module, chunks, cacheGroupKey) {
+      //   // generate a chunk name...
+      //   if (cacheGroupKey == 'vendors') {
+      //     // console.log(chunks);
+      //   }
+      //   return; //...
+      // },
       cacheGroups: {
         // vendors: {
         //   test: /[\\/]node_modules[\\/]/,
@@ -80,15 +97,15 @@ const webpackConfig = merge(baseWebpackConfig, {
         //   minSize: 0 ,
         //   name: "vendors"
         // },
-        // vendors: {
-        //   test: /[\\/]node_modules[\\/]/,
-        //   priority: -10
-        // },
-        // default: {
-        //   minChunks: 2,
-        //   priority: -20,
-        //   reuseExistingChunk: true
-        // }
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true
+        }
       }
     },
     // runtimeChunk: {
