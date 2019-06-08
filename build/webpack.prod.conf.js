@@ -42,8 +42,8 @@ const webpackConfig = merge(baseWebpackConfig, {
   mode: 'production',
   output: {
     path: config.build.assetsRoot,
-    filename: utils.assetsPath('js/[name].[chunkhash:8].js'),
-    chunkFilename: utils.assetsPath('js/[id].[chunkhash:8].js')
+    filename: utils.assetsPath('js/[name]/[name].[id].js?[chunkhash:8]'),
+    // chunkFilename: utils.assetsPath('js/[name]/[name].[id].js?[chunkhash:8]')
   },
   devtool: config.build.productionSourceMap ? config.build.devtool : false,
   module: {
@@ -80,9 +80,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     minimizer: [
       new UglifyJsPlugin({
         uglifyOptions: {
-          compress: {
-            warnings: false
-          }
+          compress: false
         },
         sourceMap: config.build.productionSourceMap,
         cache: true,
@@ -103,7 +101,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       // Options similar to the same options in webpackOptions.output
       // both options are optional
       filename: utils.assetsPath('css/[name].[contenthash:8].css'),
-      chunkFilename: utils.assetsPath('css/[id].[contenthash:8].css')
+      // chunkFilename: utils.assetsPath('css/[id].[contenthash:8].css')
     }),       
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html

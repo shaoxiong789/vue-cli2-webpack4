@@ -88,7 +88,7 @@
     name: 'HelloWorld',
     data () {
       return {
-        msg: 'Welcome to Your Vue.js App1234'
+        msg: 'Welcome to Your Vue.js App'
       };
     }
   };
