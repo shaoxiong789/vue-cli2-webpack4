@@ -81,9 +81,9 @@ const webpackConfig = merge(baseWebpackConfig, {
         }
       }
     },
-    runtimeChunk: {
-      name: 'manifest'
-    },
+    // runtimeChunk: {
+    //   name: 'manifest'
+    // },
     minimizer: [
       new UglifyJsPlugin({
         uglifyOptions: {

@@ -7,7 +7,7 @@ const routes = [{
   component: Layout,
   children: [{
     path: 'dashboard',
-    component: (resolve) => require(['./views/index.vue'], resolve)
+    component: (resolve) => require(['./views/dashboard'], resolve)
   }]
 }];
 
