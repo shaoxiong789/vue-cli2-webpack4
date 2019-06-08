@@ -8,7 +8,7 @@ import App from './App';
 import Routes from './routes';
 import Store from './store';
 import 'iview/dist/styles/iview.css';
-
+import 'clone';
 Vue.use(VueRouter);
 Vue.use(Vuex);
 Vue.use(iView);

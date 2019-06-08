@@ -24,6 +24,7 @@
     ]
   },
   "dependencies": {
+    "clone": "^2.1.2",
     "iview": "^3.1.5",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
