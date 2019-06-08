@@ -43,7 +43,7 @@ const webpackConfig = merge(baseWebpackConfig, {
   output: {
     path: config.build.assetsRoot,
     filename: utils.assetsPath('js/[name]/[name].js?[chunkhash:8]'),
-    chunkFilename: utils.assetsPath('js/[name]/[name].chunk.js?[chunkhash:8]')
+    // chunkFilename: utils.assetsPath('js/[name]/[name].chunk.js?[chunkhash:8]')
   },
   devtool: config.build.productionSourceMap ? config.build.devtool : false,
   module: {
@@ -62,21 +62,21 @@ const webpackConfig = merge(baseWebpackConfig, {
       chunks (chunk) {
         return chunk.name != 'excluded-chunk';
       },
-      // name (module, chunks, cacheGroups) {
-      //   // console.log(chunks.length);
-      //   // console.log(chunks.map((chunk) => {
-      //   //   return chunk.name
-      //   // }))
-      //   if (allChunks.length === chunks.length) {
-      //     return 'vendors';
-      //   }
-      //   return ['vendors'].concat(chunks.map((chunk) => {
-      //     return chunk.name
-      //   })).join('~')
-      //   // console.log(module, cacheGroups);
-      //   // return 'xxx'
-      //   // return cacheGroups + '.[name]'
-      // },
+      name (module, chunks, cacheGroups) {
+        // console.log(chunks.length);
+        // console.log(chunks.map((chunk) => {
+        //   return chunk.name
+        // }))
+        if (allChunks.length === chunks.length) {
+          return 'vendors';
+        }
+        return ['vendors'].concat(chunks.map((chunk) => {
+          return chunk.name
+        })).join('~')
+        // console.log(module, cacheGroups);
+        // return 'xxx'
+        // return cacheGroups + '.[name]'
+      },
       cacheGroups: {
         // commons: {
         //   test: /[\\/]node_modules[\\/]/,
