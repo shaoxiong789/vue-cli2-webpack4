@@ -12,11 +12,11 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const entries = utils.getEntries(path.join(__dirname, '../src/pages/**/main.js'))
-const chunks = Object.keys(entries)
+const allChunks = Object.keys(entries)
 const htmlPlugins = []
 
 // 生产环境，生成各模块html页面
-chunks.forEach((chunk, index) => {
+allChunks.forEach((chunk, index) => {
   htmlPlugins.push(
     new HtmlWebpackPlugin({
       filename: `${chunk}.html`,
@@ -67,6 +67,9 @@ const webpackConfig = merge(baseWebpackConfig, {
         // console.log(chunks.map((chunk) => {
         //   return chunk.name
         // }))
+        if (allChunks.length === chunks.length) {
+          return 'vendors';
+        }
         return ['vendors'].concat(chunks.map((chunk) => {
           return chunk.name
         })).join('~')
