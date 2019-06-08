@@ -59,24 +59,31 @@ const webpackConfig = merge(baseWebpackConfig, {
   optimization: {
     splitChunks: {
       cacheGroups: {
-        vendors: {
-          test: /[\\/]node_modules[\\/]/,
-          chunks: 'initial',
-          name: 'vendors',
-          priority: -10
-        },
-        'async-vendors': {
-          name: 'async-vendors',
+        // vendors: {
+        //   test: /[\\/]node_modules[\\/]/,
+        //   chunks: 'initial',
+        //   name: 'vendors',
+        //   priority: -10
+        // },
+        // 'async-vendors': {
+        //   name: 'async-vendors',
+        //   minChunks: 2,
+        //   priority: -20,
+        //   chunks: 'async',
+        //   reuseExistingChunk: true
+        // }
+        commons: {
+          chunks: "initial",
           minChunks: 2,
-          priority: -20,
-          chunks: 'async',
-          reuseExistingChunk: true
-        }
+          maxInitialRequests: 5, // The default limit is too small to showcase the effect
+          minSize: 0 ,
+          name: "commons"
+        },
       }
     },
-    runtimeChunk: {
-      name: 'manifest'
-    },
+    // runtimeChunk: {
+    //   name: 'manifest'
+    // },
     minimizer: [
       new UglifyJsPlugin({
         uglifyOptions: {
