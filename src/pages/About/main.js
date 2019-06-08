@@ -4,7 +4,6 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './App';
 import Routes from './routes';
-import 'clone';
 Vue.use(VueRouter);
 
 const router = new VueRouter({
