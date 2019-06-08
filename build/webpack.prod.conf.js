@@ -43,7 +43,7 @@ const webpackConfig = merge(baseWebpackConfig, {
   output: {
     path: config.build.assetsRoot,
     filename: utils.assetsPath('js/[name]/[name].[chunkhash:8].js'),
-    // chunkFilename: utils.assetsPath('js/[name]/[name].[id].[chunkhash:8].js')
+    chunkFilename: utils.assetsPath('js/[name]/[name].[chunkhash:8].chunk.js')
   },
   devtool: config.build.productionSourceMap ? config.build.devtool : false,
   module: {
@@ -61,6 +61,11 @@ const webpackConfig = merge(baseWebpackConfig, {
       // chunks: "all",
       chunks (chunk) {
         return chunk.name != 'excluded-chunk';
+      },
+      name (module, chunk, cacheGroups) {
+        // console.log(module, cacheGroups);
+        // return 'xxx'
+        // return cacheGroups + '.[name]'
       },
       cacheGroups: {
         'async-vendors': {
