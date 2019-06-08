@@ -1,6 +1,6 @@
 // const Index = () => import('./views/index.vue');
-// import Layout from './views/layout/Layout';
-// import dashboard from './views/dashboard';
+import Layout from './views/layout/Layout';
+import dashboard from './views/dashboard';
 const routes = [{
   path: '/',
   name: 'dashboard',
