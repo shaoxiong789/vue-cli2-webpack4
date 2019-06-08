@@ -30,11 +30,13 @@
 <script>
   import Sidebar from './components/sidebar';
   import Navbar from './components/navbar';
+  import HelloWorld from 'components/HelloWorld';
 
   export default {
     components: {
       Sidebar,
-      Navbar
+      Navbar,
+      HelloWorld
     },
     data() {
       return {
