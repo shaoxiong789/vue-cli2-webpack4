@@ -2,7 +2,7 @@
   "name": "vue-cli2-webapck4",
   "version": "1.0.0",
   "description": "一个基于vue-cli2.0改造并升级到webpack4.0版本的多页面应用",
-  "author": "web-yuzd",
+  "author": "dingshaoxiong",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",

@@ -1,8 +1,6 @@
-> 一个基于vue-cli2.0改造并升级到webpack4.0版本的多页面应用
-
 ## 介绍
 
-`vue-cli2-webpack4`项目是一个基于vue-cli2.x生成的项目模板并且将webpack版本升级到4.X的小项目，希望能加入webpack4相关的最佳实践，
+此项目是一个基于vue-cli2.0改造并升级到webpack4.0版本的多页面应用
 
 ## 开发
 
