@@ -43,7 +43,7 @@ const webpackConfig = merge(baseWebpackConfig, {
   output: {
     path: config.build.assetsRoot,
     filename: utils.assetsPath('js/[name]/[name].js?[chunkhash:8]'),
-    chunkFilename: utils.assetsPath('js/[name]/[id].js?[chunkhash:8]')
+    chunkFilename: utils.assetsPath('js/[name]/[name].[id].js?[chunkhash:8]')
   },
   devtool: config.build.productionSourceMap ? config.build.devtool : false,
   module: {
@@ -58,6 +58,7 @@ const webpackConfig = merge(baseWebpackConfig, {
   },
   optimization: {
     splitChunks: {
+      chunks: "all",
       cacheGroups: {
         // vendors: {
         //   test: /[\\/]node_modules[\\/]/,
@@ -72,13 +73,22 @@ const webpackConfig = merge(baseWebpackConfig, {
         //   chunks: 'async',
         //   reuseExistingChunk: true
         // }
-        commons: {
-          chunks: "initial",
-          minChunks: 2,
-          maxInitialRequests: 5, // The default limit is too small to showcase the effect
-          minSize: 0 ,
-          name: "commons"
-        },
+        // commons: {
+        //   chunks: "initial",
+        //   minChunks: 2,
+        //   maxInitialRequests: 5, // The default limit is too small to showcase the effect
+        //   minSize: 0 ,
+        //   name: "vendors"
+        // },
+        // vendors: {
+        //   test: /[\\/]node_modules[\\/]/,
+        //   priority: -10
+        // },
+        // default: {
+        //   minChunks: 2,
+        //   priority: -20,
+        //   reuseExistingChunk: true
+        // }
       }
     },
     // runtimeChunk: {
@@ -107,8 +117,8 @@ const webpackConfig = merge(baseWebpackConfig, {
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      filename: utils.assetsPath('css/[name].css?[contenthash:8]'),
-      // chunkFilename: utils.assetsPath('css/[id].[contenthash:8].css')
+      filename: utils.assetsPath('css/[name]/[name].css?[contenthash:8]'),
+      chunkFilename: utils.assetsPath('css/[name]/[name].[id].css?[contenthash:8]')
     }),       
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
