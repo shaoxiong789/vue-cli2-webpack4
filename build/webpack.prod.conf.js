@@ -100,7 +100,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      filename: utils.assetsPath('css/[name].[contenthash:8].css'),
+      filename: utils.assetsPath('css/[name].css?[contenthash:8]'),
       // chunkFilename: utils.assetsPath('css/[id].[contenthash:8].css')
     }),       
     // generate dist index.html with correct asset hash for caching.
