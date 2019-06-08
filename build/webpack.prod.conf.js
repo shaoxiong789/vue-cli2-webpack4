@@ -22,7 +22,7 @@ chunks.forEach((chunk, index) => {
       filename: `${chunk}.html`,
       template: `${path.dirname(entries[chunk])}/template.html`,
       inject: true,
-      // chunks: [chunk, 'vendors', 'async-vendors', 'manifest'],
+      chunks: [chunk, 'vendors', 'async-vendors', 'manifest'],
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -81,7 +81,9 @@ const webpackConfig = merge(baseWebpackConfig, {
         }
       }
     },
-    // runtimeChunk: true,
+    runtimeChunk: {
+      name: 'manifest'
+    },
     minimizer: [
       new UglifyJsPlugin({
         uglifyOptions: {
