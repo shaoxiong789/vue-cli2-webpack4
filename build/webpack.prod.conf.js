@@ -42,12 +42,12 @@ const webpackConfig = merge(baseWebpackConfig, {
   mode: 'production',
   output: {
     path: config.build.assetsRoot,
-    filename: utils.assetsPath('js/[name]/[name].js?[chunkhash:8]'),
-    // filename({ chunk }) {
-    //   // const Chunk = chunk.Chunk;
-    //   console.log(chunk.name, chunk.id, '1121--------------------------');
-    //   return utils.assetsPath('js/[name]/[name].[id].js?[chunkhash:8]');
-    // },
+    // filename: utils.assetsPath('js/[name]/[name].js?[chunkhash:8]'),
+    filename({ chunk }) {
+      // const Chunk = chunk.Chunk;
+      console.log(chunk.name, chunk.id, '1121--------------------------');
+      return utils.assetsPath('js/[name]/[name].js?[chunkhash:8]');
+    },
     chunkFilename: utils.assetsPath('js/chunk/[name].js?[chunkhash:8]')
   },
   devtool: config.build.productionSourceMap ? config.build.devtool : false,
@@ -77,9 +77,9 @@ const webpackConfig = merge(baseWebpackConfig, {
         //   return chunk.name
         // }), allChunks.length === chunks.length);
         if (allChunks.length === chunks.length) {
-          return 'vendors~all';
+          return 'vendors/vendors~all';
         } else {
-          return ['vendors'].concat(md5(chunks.map((chunk) => {
+          return ['vendors/vendors'].concat(md5(chunks.map((chunk) => {
             return chunk.name
           }).join('.'))).join('~')
         }
