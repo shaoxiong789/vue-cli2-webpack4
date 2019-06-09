@@ -63,10 +63,10 @@ const webpackConfig = merge(baseWebpackConfig, {
   },
   optimization: {
     splitChunks: {
-      // chunks: "all",
-      chunks (chunk) {
-        return chunk.name != 'excluded-chunk';
-      },
+      chunks: "initial",
+      // chunks (chunk) {
+      //   return chunk.name != 'excluded-chunk';
+      // },
       name (module, chunks, cacheGroups) {
         // console.log(chunks.length);
         // console.log(chunks.map((chunk) => {
@@ -120,7 +120,9 @@ const webpackConfig = merge(baseWebpackConfig, {
         // }
       }
     },
-    runtimeChunk: true,
+    runtimeChunk: {
+      name: 'manifest'
+    },
     minimizer: [
       new UglifyJsPlugin({
         uglifyOptions: {
