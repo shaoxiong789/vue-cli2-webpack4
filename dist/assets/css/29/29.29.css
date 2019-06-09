@@ -36,17 +36,17 @@
 }
 
 
-.layout-header-bar[data-v-60033df7] {
+.layout-header-bar[data-v-82a1af0e] {
   background: #fff;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
           box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   cursor: pointer;
 }
-.menu-icon[data-v-60033df7] {
+.menu-icon[data-v-82a1af0e] {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
 }
-.rotate-icon[data-v-60033df7] {
+.rotate-icon[data-v-82a1af0e] {
   -webkit-transform: rotate(-90deg);
           transform: rotate(-90deg);
 }
@@ -68,14 +68,14 @@ a[data-v-453c3e14] {
 }
 
 
-.layout[data-v-6b88ce42] {
+.layout[data-v-10203d78] {
   border: 1px solid #d7dde4;
   background: #f5f7f9;
   position: relative;
   border-radius: 4px;
   overflow: hidden;
 }
-.layout-logo-left[data-v-6b88ce42] {
+.layout-logo-left[data-v-10203d78] {
   width: 90%;
   height: 30px;
   background: #5b6270;
