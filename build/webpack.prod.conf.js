@@ -17,6 +17,7 @@ const htmlPlugins = []
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
+var a = 0;
 // 生产环境，生成各模块html页面
 allChunks.forEach((chunk, index) => {
   htmlPlugins.push(
@@ -84,9 +85,11 @@ const webpackConfig = merge(baseWebpackConfig, {
             if (allChunks.length === chunks.length) {
               return 'vendors/vendors~all';
             } else {
-              return ['vendors/vendors'].concat(md5(chunks.map((chunk) => {
-                return chunk.name
-              }).join('.'))).join('~')
+              if (a == 0) {
+                // console.log(module._buildHash);
+                a = 1
+              }
+              return ['vendors/vendors'].concat(module._buildHash).join('~')
             }
           }
         }
