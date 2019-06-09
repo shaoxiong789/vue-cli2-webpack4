@@ -10,7 +10,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-
+const md5 = require('md5')
 const entries = utils.getEntries(path.join(__dirname, '../src/pages/**/main.js'))
 const allChunks = Object.keys(entries)
 const htmlPlugins = []
@@ -48,7 +48,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     //   console.log(chunk.name, chunk.id, '1121--------------------------');
     //   return utils.assetsPath('js/[name]/[name].[id].js?[chunkhash:8]');
     // },
-    chunkFilename: utils.assetsPath('js/chunk/[chunkhash:8]/[name].js?[chunkhash:8]')
+    chunkFilename: utils.assetsPath('js/chunk/[name].js?[chunkhash:8]')
   },
   devtool: config.build.productionSourceMap ? config.build.devtool : false,
   module: {
@@ -72,16 +72,20 @@ const webpackConfig = merge(baseWebpackConfig, {
         // console.log(chunks.map((chunk) => {
         //   return chunk.name
         // }))
-        console.log('splitChunks----------------');
-        console.log(chunks.map((chunk) => {
-          return chunk.name
-        }));
+        // console.log('splitChunks----------------');
+        // console.log(chunks.map((chunk) => {
+        //   return chunk.name
+        // }), allChunks.length === chunks.length);
         if (allChunks.length === chunks.length) {
           return 'vendors~all';
+        } else {
+          return ['vendors'].concat(md5(chunks.map((chunk) => {
+            return chunk.name
+          }).join('.'))).join('~')
         }
-        return ['vendors'].concat(chunks.map((chunk) => {
-          return chunk.name
-        })).join('~')
+        // return ['vendors'].concat(chunks.map((chunk) => {
+        //   return chunk.name
+        // })).join('~')
         // console.log(module, cacheGroups);
         // return 'xxx'
         // return cacheGroups + '.[name]'
