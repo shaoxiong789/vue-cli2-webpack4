@@ -5,8 +5,12 @@
 </template>
 
 <script>
+  import MySelect from 'components/MySelect.vue'; 
   export default {
-    name: 'App'
+    name: 'App',
+    components: {
+      MySelect
+    }
   };
 </script>
 

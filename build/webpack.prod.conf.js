@@ -46,10 +46,7 @@ const webpackConfig = merge(baseWebpackConfig, {
   mode: 'production',
   output: {
     path: config.build.assetsRoot,
-    // filename: utils.assetsPath('js/[name]/[name].js?[chunkhash:8]'),
     filename({ chunk }) {
-      // const Chunk = chunk.Chunk;
-      console.log(chunk.name, chunk.id, '1121--------------------------');
       return utils.assetsPath('js/[name]/[name].js?[chunkhash:8]');
     },
     chunkFilename: utils.assetsPath('js/chunk/[name].js?[chunkhash:8]')
@@ -67,30 +64,33 @@ const webpackConfig = merge(baseWebpackConfig, {
   },
   optimization: {
     splitChunks: {
-      chunks: "all",
+      name (module, chunks, cacheGroups) {
+        // 优化没有银弹，后面根据项目实际情况进行配置
+        if (cacheGroups == 'vendors') {
+          if (allChunks.length === chunks.length) {
+            return 'vendors/vendors~all';
+          } else {
+            return ['vendors/vendors'].concat(md5(chunks.map((chunk) => {
+              return chunk.name
+            }).join('.'))).join('~')
+            // return ['vendors/vendors'].concat(module._buildHash).join('~')
+          }
+        }
+        // if (cacheGroups == 'myComponents') {
+        //   return 'chunk-comomns'
+        // }
+      },
       cacheGroups: {
-        // 把项目中的公共代码抽出来
+        // 把项目中的公共组件或模块抽出来
         myComponents: {
           // name: "chunk-comomns",
           test: /[\\/]src[\\/]components[\\/]/, // 可自定义拓展你的规则\
-          chunks: "all",
-          name () {
-            return 'chunk-comomns'
-          }
+          chunks: "all"
         },
+        // 把包仓库里用到的模块抽出来
         vendors: {
           test: /[\\/]node_modules[\\/]/,
-          chunks: "all",
-          name (module, chunks, cacheGroups) {
-            if (allChunks.length === chunks.length) {
-              return 'vendors/vendors~all';
-            } else {
-              // return ['vendors/vendors'].concat(md5(chunks.map((chunk) => {
-              //   return chunk.name
-              // }).join('.'))).join('~')
-              return ['vendors/vendors'].concat(module._buildHash).join('~')
-            }
-          }
+          chunks: "all"
         }
       }
     },
