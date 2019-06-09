@@ -1,13 +1,14 @@
 // const Index = () => import('./views/index.vue');
-// import Layout from './views/layout/Layout';
-import dashboard from './views/dashboard';
+import Layout from './views/layout/Layout';
+// import dashboard from './views/dashboard';
+const dashboard = import(/* webpackChunkName: "index1/dashboard" */ './views/dashboard')
 const routes = [{
   path: '/',
   name: 'dashboard',
-  component: (resolve) => require(['./views/layout/Layout'], resolve),
+  component: Layout,
   children: [{
     path: 'dashboard',
-    component: (resolve) => require(['./views/dashboard'], resolve)
+    component: dashboard
   }]
 }];
 

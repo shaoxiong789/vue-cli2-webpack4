@@ -14,7 +14,9 @@ const md5 = require('md5')
 const entries = utils.getEntries(path.join(__dirname, '../src/pages/**/main.js'))
 const allChunks = Object.keys(entries)
 const htmlPlugins = []
-
+function resolve(dir) {
+  return path.join(__dirname, '..', dir)
+}
 // 生产环境，生成各模块html页面
 allChunks.forEach((chunk, index) => {
   htmlPlugins.push(
@@ -64,61 +66,30 @@ const webpackConfig = merge(baseWebpackConfig, {
   },
   optimization: {
     splitChunks: {
-      chunks: "initial",
-      // chunks (chunk) {
-      //   return chunk.name != 'excluded-chunk';
-      // },
-      name (module, chunks, cacheGroups) {
-        // console.log(chunks.length);
-        // console.log(chunks.map((chunk) => {
-        //   return chunk.name
-        // }))
-        // console.log('splitChunks----------------');
-        // console.log(chunks.map((chunk) => {
-        //   return chunk.name
-        // }), allChunks.length === chunks.length);
-        if (allChunks.length === chunks.length) {
-          return 'vendors/vendors~all';
-        } else {
-          return ['vendors/vendors'].concat(md5(chunks.map((chunk) => {
-            return chunk.name
-          }).join('.'))).join('~')
-        }
-        // return ['vendors'].concat(chunks.map((chunk) => {
-        //   return chunk.name
-        // })).join('~')
-        // console.log(module, cacheGroups);
-        // return 'xxx'
-        // return cacheGroups + '.[name]'
-      },
+      chunks: "all",
       cacheGroups: {
-        // commons: {
-        //   test: /[\\/]node_modules[\\/]/,
-        //   name: "vendors",
-        //   chunks: "all"
-        // },
-        // commons: {
-        //   test: /[\\/]node_modules[\\/]/,
-        //   name: "vendors",
-        //   chunks: "all",
-        //   minChunks: 1
-        // },
-        // 'async-vendors': {
-        //   name: 'async-vendors',
-        //   minChunks: 2,
-        //   priority: -20,
-        //   chunks: 'async',
-        //   reuseExistingChunk: true
-        // },
-        // vendors: {
-        //   test: /[\\/]node_modules[\\/]/,
-        //   priority: -10
-        // },
-        // default: {
-        //   minChunks: 2,
-        //   priority: -20,
-        //   reuseExistingChunk: true
-        // }
+        // 把项目中的公共代码抽出来
+        myComponents: {
+          // name: "chunk-comomns",
+          test: /[\\/]src[\\/]components[\\/]/, // 可自定义拓展你的规则\
+          chunks: "all",
+          name () {
+            return 'chunk-comomns'
+          }
+        },
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          chunks: "all",
+          name (module, chunks, cacheGroups) {
+            if (allChunks.length === chunks.length) {
+              return 'vendors/vendors~all';
+            } else {
+              return ['vendors/vendors'].concat(md5(chunks.map((chunk) => {
+                return chunk.name
+              }).join('.'))).join('~')
+            }
+          }
+        }
       }
     },
     runtimeChunk: 'single',
@@ -142,12 +113,12 @@ const webpackConfig = merge(baseWebpackConfig, {
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
     
-    // new webpack.HashedModuleIdsPlugin(),
+    new webpack.HashedModuleIdsPlugin(),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
       filename: utils.assetsPath('css/[name]/[name].css?[contenthash:8]'),
-      chunkFilename: utils.assetsPath('css/[name]/[name].[id].css?[contenthash:8]')
+      chunkFilename: utils.assetsPath('css/chunk/[name].css?[contenthash:8]')
     }),       
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
