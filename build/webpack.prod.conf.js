@@ -85,10 +85,9 @@ const webpackConfig = merge(baseWebpackConfig, {
             if (allChunks.length === chunks.length) {
               return 'vendors/vendors~all';
             } else {
-              if (a == 0) {
-                // console.log(module._buildHash);
-                a = 1
-              }
+              // return ['vendors/vendors'].concat(md5(chunks.map((chunk) => {
+              //   return chunk.name
+              // }).join('.'))).join('~')
               return ['vendors/vendors'].concat(module._buildHash).join('~')
             }
           }
