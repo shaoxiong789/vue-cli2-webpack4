@@ -22,7 +22,6 @@ allChunks.forEach((chunk, index) => {
       filename: `${chunk}.html`,
       // template: `${path.dirname(entries[chunk])}/template.html`,
       template: `src/template.html`,
-      title: 'Caching',
       inject: true,
       chunks: [chunk, 'vendors', 'async-vendors', 'manifest'],
       minify: {
@@ -122,9 +121,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         // }
       }
     },
-    runtimeChunk: {
-      name: 'manifest'
-    },
+    runtimeChunk: 'single',
     minimizer: [
       new UglifyJsPlugin({
         uglifyOptions: {
