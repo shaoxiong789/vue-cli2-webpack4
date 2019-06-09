@@ -1,8 +1,8 @@
 // const Index = () => import('./views/index.vue');
 import Layout from './views/layout/Layout';
 // import dashboard from './views/dashboard';
-// const dashboard = import(/* webpackChunkName: "index2/dashboard" */ './views/dashboard')
-const dashboard = import('./views/dashboard')
+const dashboard = import(/* webpackChunkName: "index2/dashboard" */ './views/dashboard')
+// const dashboard = import('./views/dashboard')
 
 const routes = [{
   path: '/',
