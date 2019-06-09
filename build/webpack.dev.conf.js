@@ -13,7 +13,7 @@ const portfinder = require('portfinder')
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 
-const entries = utils.getEntries(path.join(__dirname, '../src/pages/**/main.js'))
+const entries = baseWebpackConfig.entry
 const chunks = Object.keys(entries)
 const htmlPlugins = []
 
@@ -22,7 +22,8 @@ chunks.forEach((chunk) => {
   htmlPlugins.push(
     new HtmlWebpackPlugin({
       filename: `${chunk}.html`,
-      template: `${path.dirname(entries[chunk])}/template.html`,
+      // template: `${path.dirname(entries[chunk])}/template.html`,
+      template: `src/template.html`,
       chunks: [chunk],
       inject: true
     }),

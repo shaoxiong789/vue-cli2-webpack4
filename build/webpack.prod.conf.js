@@ -11,7 +11,7 @@ const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const md5 = require('md5')
-const entries = utils.getEntries(path.join(__dirname, '../src/pages/**/main.js'))
+const entries = baseWebpackConfig.entry
 const allChunks = Object.keys(entries)
 const htmlPlugins = []
 function resolve(dir) {

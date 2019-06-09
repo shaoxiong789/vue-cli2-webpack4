@@ -106,12 +106,12 @@ exports.createNotifierCallback = () => {
  * @param  {String} modpath 入口路径
  */
 exports.getEntries = (modpath) => {
+  console.log(modpath);
   let  entries = {};
-
   glob.sync(modpath).forEach((entry) => {
     // 获取包含main.js入口文件的文件夹名称，作为入口名
-    let dirname = path.dirname(entry).split('/').pop();
-
+    let dirname = path.dirname(entry).replace(path.join(__dirname, '../src/pages/'), '')
+    console.log('dirname', dirname, path.dirname(entry));
     // 驼峰命名文件夹名称改为中横线连接
     entries[dirname.replace(/([A-Z])/g, '-$1').toLowerCase().replace(/^-/, '')] = entry;
   })

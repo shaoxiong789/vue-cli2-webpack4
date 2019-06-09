@@ -1,7 +1,3 @@
-## 介绍
-
-此项目是一个基于vue-cli2.0改造并升级到webpack4.0版本的多页面应用
-
 ## 开发
 
 ``` bash
@@ -9,8 +5,9 @@
 npm install
 
 # 启动本地服务 localhost:8080
-npm run dev
+gulp dev --port=[port] --path=[path]
 ```
+path为要启动的项目路径，默认是全部启动
 
 ## 发布构建
 

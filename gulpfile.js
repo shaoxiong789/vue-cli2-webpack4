@@ -1,17 +1,21 @@
 var gulp = require('gulp');
 var opn = require('opn')
+const path = require('path')
 var gutil = require('gulp-util');
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var webpackDevConfig = require('./build/webpack.dev.conf.js');
 var config = require('./config')
 var args = require('process.args')();
+var utils = require('./build/utils')
 
 gulp.task('dev', function (callback) {
   webpackDevConfig.then(function(myConfig) {
     const param = args.dev;
     const port = param.port || myConfig.devServer.port;
     const host = param.host || myConfig.devServer.host;
+    const mypath = param.path || '**';
+    myConfig.entry = utils.getEntries(path.join(__dirname, `./src/pages/${mypath}/**/main.js`))
     const baseUrl = `http://${host}:${port}/`
     const devServer = new WebpackDevServer(webpack(myConfig), {
       hot: true
