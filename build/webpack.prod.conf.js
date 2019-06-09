@@ -20,7 +20,9 @@ allChunks.forEach((chunk, index) => {
   htmlPlugins.push(
     new HtmlWebpackPlugin({
       filename: `${chunk}.html`,
-      template: `${path.dirname(entries[chunk])}/template.html`,
+      // template: `${path.dirname(entries[chunk])}/template.html`,
+      template: `src/template.html`,
+      title: 'Caching',
       inject: true,
       chunks: [chunk, 'vendors', 'async-vendors', 'manifest'],
       minify: {
