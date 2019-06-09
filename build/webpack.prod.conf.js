@@ -102,13 +102,13 @@ const webpackConfig = merge(baseWebpackConfig, {
         //   chunks: "all",
         //   minChunks: 1
         // },
-        'async-vendors': {
-          name: 'async-vendors',
-          minChunks: 2,
-          priority: -20,
-          chunks: 'async',
-          reuseExistingChunk: true
-        },
+        // 'async-vendors': {
+        //   name: 'async-vendors',
+        //   minChunks: 2,
+        //   priority: -20,
+        //   chunks: 'async',
+        //   reuseExistingChunk: true
+        // },
         // vendors: {
         //   test: /[\\/]node_modules[\\/]/,
         //   priority: -10
