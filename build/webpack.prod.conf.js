@@ -50,7 +50,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       console.log(chunk.name, chunk.id, '1121--------------------------');
       return utils.assetsPath('js/[name]/[name].js?[chunkhash:8]');
     },
-    chunkFilename: utils.assetsPath('js/chunk/[name].js?[chunkhash:8]')
+    chunkFilename: utils.assetsPath('js/chunk/[name].[chunkhash:8].js?[chunkhash:8]')
   },
   devtool: config.build.productionSourceMap ? config.build.devtool : false,
   module: {
