@@ -1,12 +1,15 @@
-## 开发
-
+## 准备工作
 ``` bash
 # 安装依赖
 npm install
 
 # 启动之前准备工作
 npm i gulp -g
+```
 
+## 开发
+
+``` bash
 # 启动本地服务 localhost:8080
 gulp dev --port=[port] --path=[path]
 ```
