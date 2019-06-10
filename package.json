@@ -7,9 +7,9 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "gulp dev --port=8080",
+    "build": "gulp build",
     "lint": "eslint --fix --ext .js,.vue src",
     "lint:prettier": "prettier --write \"src/**/*.{js,json,css,scss,vue}\"",
-    "build": "node build/build.js",
     "analyz": "npm_config_report=true npm run build"
   },
   "husky": {

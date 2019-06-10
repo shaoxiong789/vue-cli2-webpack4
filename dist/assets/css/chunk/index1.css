@@ -45,46 +45,46 @@
 }
 
 
-.layout-header-bar[data-v-43ff7e71] {
+.layout-header-bar[data-v-9ff91bfe] {
   background: #fff;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
           box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   cursor: pointer;
 }
-.menu-icon[data-v-43ff7e71] {
+.menu-icon[data-v-9ff91bfe] {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
 }
-.rotate-icon[data-v-43ff7e71] {
+.rotate-icon[data-v-9ff91bfe] {
   -webkit-transform: rotate(-90deg);
           transform: rotate(-90deg);
 }
 
-h1[data-v-453c3e14], h2[data-v-453c3e14] {
+h1[data-v-469af010], h2[data-v-469af010] {
   font-weight: normal;
 }
-ul[data-v-453c3e14] {
+ul[data-v-469af010] {
   list-style-type: none;
   padding: 0;
 }
-li[data-v-453c3e14] {
+li[data-v-469af010] {
   display: inline-block;
   margin: 0 10px;
   color: red;
 }
-a[data-v-453c3e14] {
+a[data-v-469af010] {
   color: red;
 }
 
 
-.layout[data-v-7358d588] {
+.layout[data-v-f3b5d3bc] {
   border: 1px solid #d7dde4;
   background: #f5f7f9;
   position: relative;
   border-radius: 4px;
   overflow: hidden;
 }
-.layout-logo-left[data-v-7358d588] {
+.layout-logo-left[data-v-f3b5d3bc] {
   width: 90%;
   height: 30px;
   background: #5b6270;
