@@ -17,7 +17,6 @@ const htmlPlugins = []
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
-var a = 0;
 // 生产环境，生成各模块html页面
 allChunks.forEach((chunk, index) => {
   htmlPlugins.push(
@@ -26,7 +25,7 @@ allChunks.forEach((chunk, index) => {
       // template: `${path.dirname(entries[chunk])}/template.html`,
       template: `src/template.html`,
       inject: true,
-      chunks: [chunk, 'vendors', 'async-vendors', 'manifest'],
+      chunks: [chunk],
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -65,26 +64,26 @@ const webpackConfig = merge(baseWebpackConfig, {
   optimization: {
     splitChunks: {
       name (module, chunks, cacheGroups) {
-        // 优化没有银弹，后面根据项目实际情况进行配置
+        // 最多生成两个两个chunk文件，后面根据项目实际情况进行配置
         if (cacheGroups == 'vendors') {
-          if (allChunks.length === chunks.length) {
-            return 'vendors/vendors~all';
-          } else {
-            return ['vendors/vendors'].concat(md5(chunks.map((chunk) => {
-              return chunk.name
-            }).join('.'))).join('~')
-            // return ['vendors/vendors'].concat(module._buildHash).join('~')
-          }
+          // if (allChunks.length === chunks.length) {
+          //   return 'vendors/vendors~all';
+          // } else {
+          //   return ['vendors/vendors'].concat(md5(chunks.map((chunk) => {
+          //     return chunk.name
+          //   }).join('.'))).join('~')
+          //   // return ['vendors/vendors'].concat(module._buildHash).join('~')
+          // }
+          return 'chunk-vendors'
         }
-        // if (cacheGroups == 'myComponents') {
-        //   return 'chunk-comomns'
-        // }
+        if (cacheGroups == 'common') {
+          return 'chunk-comomns'
+        }
       },
       cacheGroups: {
         // 把项目中的公共组件或模块抽出来
-        myComponents: {
-          // name: "chunk-comomns",
-          test: /[\\/]src[\\/]components[\\/]/, // 可自定义拓展你的规则\
+        common: {
+          test: /[\\/]src[\\/]components[\\/]/,
           chunks: "all"
         },
         // 把包仓库里用到的模块抽出来

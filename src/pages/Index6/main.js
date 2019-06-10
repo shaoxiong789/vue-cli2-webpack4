@@ -9,6 +9,9 @@ import Routes from './routes';
 import Store from './store';
 import 'iview/dist/styles/iview.css';
 import 'clone';
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+Vue.use(ElementUI)
 Vue.use(VueRouter);
 Vue.use(Vuex);
 Vue.use(iView);
