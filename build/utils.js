@@ -115,3 +115,14 @@ exports.getEntries = (modpath) => {
   })
   return entries;
 }
+
+exports.getCDNAsset = () => {
+  return {
+    styles: [
+      'https://cdnstyle.woqukaoqin.com/style/static/basisui/css/v1.0.22/index.css'
+    ],
+    scripts: [
+      'https://cdnstyle.woqukaoqin.com/style/static/basisui/js/v1.0.22/wqBase.js'
+    ]
+  }
+}

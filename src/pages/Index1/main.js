@@ -9,6 +9,8 @@ import Routes from './routes';
 import Store from './store';
 import 'iview/dist/styles/iview.css';
 import 'clone';
+
+window.Vue = Vue;
 Vue.use(VueRouter);
 Vue.use(Vuex);
 Vue.use(iView);

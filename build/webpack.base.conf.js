@@ -5,6 +5,8 @@ const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const entries = utils.getEntries(path.join(__dirname, '../src/pages/**/main.js'))
+const HtmlInjectForCDNPlugin = require('./HtmlInjectForCDNPlugin')
+const md5 = require('md5')
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
@@ -90,9 +92,48 @@ module.exports = {
       }
     ]
   },
+  optimization: {
+    splitChunks: {
+      name (module, chunks, cacheGroups) {
+        const allChunks = Object.keys(entries)
+        // 最多生成两个两个chunk文件，后面根据项目实际情况进行配置
+        if (cacheGroups == 'vendors') {
+          // if (allChunks.length === chunks.length) {
+          //   return 'vendors/vendors~all';
+          // } else {
+          //   return ['vendors/vendors'].concat(md5(chunks.map((chunk) => {
+          //     return chunk.name
+          //   }).join('.'))).join('~')
+          //   // return ['vendors/vendors'].concat(module._buildHash).join('~')
+          // }
+          return 'chunk-vendors'
+        }
+        if (cacheGroups == 'common') {
+          return 'chunk-comomns'
+        }
+      },
+      cacheGroups: {
+        // 把项目中的公共组件或模块抽出来
+        common: {
+          test: /[\\/]src[\\/]components[\\/]/,
+          chunks: "all"
+        },
+        // 把包仓库里用到的模块抽出来
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          chunks: "all"
+        }
+      }
+    },
+    runtimeChunk: 'single'
+  },  
   plugins: [
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
+    new HtmlInjectForCDNPlugin(utils.getCDNAsset())
   ],
+  externals: {
+    'wq-base': 'WQBASE'
+  },
   node: {
     // prevent webpack from injecting useless setImmediate polyfill because Vue
     // source contains it (although only uses it if it's native).

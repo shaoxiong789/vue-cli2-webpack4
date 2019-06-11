@@ -13,24 +13,26 @@ const rm = require('rimraf')
 const ora = require('ora')
 const chalk = require('chalk')
 
+// 对一些npm模块做版本校验，自动更新
 gulp.task('renew', function (callback) {
-  const ncu = require('npm-check-updates');
+  callback()
+  // const ncu = require('npm-check-updates');
 
-  const exec = function (cmd) {
-    return require('child_process').execSync(cmd).toString().trim()
-  }
-  ncu.run({
-    jsonUpgraded: true,
-    packageManager: 'npm',
-    args: [ 'vue' ],
-    silent: true
-  }).then((upgraded) => {
-    console.log('dependencies to upgrade:', upgraded);
-    Object.keys(upgraded).forEach((key) => {
-      exec(`cnpm i ${key} --save`)
-    })
-    callback()
-  });
+  // const exec = function (cmd) {
+  //   return require('child_process').execSync(cmd).toString().trim()
+  // }
+  // ncu.run({
+  //   jsonUpgraded: true,
+  //   packageManager: 'npm',
+  //   args: [ 'vue' ],
+  //   silent: true
+  // }).then((upgraded) => {
+  //   console.log('dependencies to upgrade:', upgraded);
+  //   Object.keys(upgraded).forEach((key) => {
+  //     exec(`cnpm i ${key} --save`)
+  //   })
+  //   callback()
+  // });
 }) 
 
 gulp.task('dev', gulp.series('renew', (callback) => {

@@ -10,7 +10,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const md5 = require('md5')
+const HtmlInjectForCDNPlugin = require('./HtmlInjectForCDNPlugin')
+const SriPlugin = require('webpack-subresource-integrity')
+
 const entries = baseWebpackConfig.entry
 const allChunks = Object.keys(entries)
 const htmlPlugins = []
@@ -34,7 +36,7 @@ allChunks.forEach((chunk, index) => {
         removeScriptTypeAttributes: true
         // more options:
         // https://github.com/kangax/html-minifier#options-quick-reference
-      },
+      }
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       // chunksSortMode: 'dependency'
     })
@@ -45,6 +47,7 @@ const webpackConfig = merge(baseWebpackConfig, {
   mode: 'production',
   output: {
     path: config.build.assetsRoot,
+    crossOriginLoading: 'anonymous',
     filename({ chunk }) {
       return utils.assetsPath('js/[name]/[name].js?[chunkhash:8]');
     },
@@ -62,38 +65,6 @@ const webpackConfig = merge(baseWebpackConfig, {
     hints: false
   },
   optimization: {
-    splitChunks: {
-      name (module, chunks, cacheGroups) {
-        // 最多生成两个两个chunk文件，后面根据项目实际情况进行配置
-        if (cacheGroups == 'vendors') {
-          // if (allChunks.length === chunks.length) {
-          //   return 'vendors/vendors~all';
-          // } else {
-          //   return ['vendors/vendors'].concat(md5(chunks.map((chunk) => {
-          //     return chunk.name
-          //   }).join('.'))).join('~')
-          //   // return ['vendors/vendors'].concat(module._buildHash).join('~')
-          // }
-          return 'chunk-vendors'
-        }
-        if (cacheGroups == 'common') {
-          return 'chunk-comomns'
-        }
-      },
-      cacheGroups: {
-        // 把项目中的公共组件或模块抽出来
-        common: {
-          test: /[\\/]src[\\/]components[\\/]/,
-          chunks: "all"
-        },
-        // 把包仓库里用到的模块抽出来
-        vendors: {
-          test: /[\\/]node_modules[\\/]/,
-          chunks: "all"
-        }
-      }
-    },
-    runtimeChunk: 'single',
     minimizer: [
       new UglifyJsPlugin({
         uglifyOptions: {
@@ -125,6 +96,10 @@ const webpackConfig = merge(baseWebpackConfig, {
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
     ...htmlPlugins,
+    new SriPlugin({
+      hashFuncNames: ['sha256', 'sha384'],
+      enabled: true,
+    }),
     // keep module.id stable when vendor modules does not change
     new webpack.HashedModuleIdsPlugin(),
 
