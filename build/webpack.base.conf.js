@@ -132,7 +132,9 @@ module.exports = {
     new HtmlInjectForCDNPlugin(utils.getCDNAsset())
   ],
   externals: {
-    'wq-base': 'WQBASE'
+    'vue': 'Vue',
+    'wq-base': 'WQBASE',
+    'vue-i18n': 'VueI18n'
   },
   node: {
     // prevent webpack from injecting useless setImmediate polyfill because Vue

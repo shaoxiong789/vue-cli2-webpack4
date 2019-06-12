@@ -4,12 +4,15 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Vuex from 'vuex';
 import iView from 'iview';
+import WQBASE from 'wq-base';
 import App from './App';
 import Routes from './routes';
 import Store from './store';
 import 'iview/dist/styles/iview.css';
 import 'clone';
-
+console.log(WQBASE);
+Vue.use(WQBASE);
+window.WQBASE = WQBASE;
 window.Vue = Vue;
 Vue.use(VueRouter);
 Vue.use(Vuex);

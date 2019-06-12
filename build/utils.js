@@ -122,6 +122,7 @@ exports.getCDNAsset = () => {
       'https://cdnstyle.woqukaoqin.com/style/static/basisui/css/v1.0.22/index.css'
     ],
     scripts: [
+      'https://cdnstyle.woqukaoqin.com/style/static/vue/vue.js',
       'https://cdnstyle.woqukaoqin.com/style/static/basisui/js/v1.0.22/wqBase.js'
     ]
   }
