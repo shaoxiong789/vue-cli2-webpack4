@@ -4,15 +4,32 @@ const path = require('path')
 var gutil = require('gulp-util');
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
-var webpackDevConfig = require('./build/webpack.dev.conf.js');
-var webpackProdConfig = require('./build/webpack.prod.conf');
-var config = require('./config')
 var args = require('process.args')();
-var utils = require('./build/utils')
 const rm = require('rimraf')
 const ora = require('ora')
 const chalk = require('chalk')
+const fs = require('fs');
 
+gulp.task('init', function (callback) {
+  fs.exists('./config/proxy.js', function(exists) {
+    if(!exists){
+      fs.writeFile('./config/proxy.js', `module.exports = {
+  '/forward_webfront': {
+    target: 'https://yuhmc-1.woqu365.com', // 接口的域名
+    secure: true, // 如果是https接口，需要配置这个参数
+    changeOrigin: true, // 如果接口跨域，需要进行这个参数配置
+  }
+}`,'utf8',function(error){
+        if(error){
+          return false;
+        }
+        callback()
+      })
+    } else {
+      callback()
+    }
+  })
+})
 // 对一些npm模块做版本校验，自动更新
 gulp.task('renew', function (callback) {
   callback()
@@ -35,7 +52,10 @@ gulp.task('renew', function (callback) {
   // });
 }) 
 
-gulp.task('dev', gulp.series('renew', (callback) => {
+gulp.task('dev', gulp.series('init', 'renew', (callback) => {
+  var webpackDevConfig = require('./build/webpack.dev.conf.js');
+  var config = require('./config')
+  var utils = require('./build/utils')
   webpackDevConfig.then(function(myConfig) {
     const param = args.dev;
     const port = param.port || myConfig.devServer.port;
@@ -43,9 +63,7 @@ gulp.task('dev', gulp.series('renew', (callback) => {
     const mypath = param.path || '**';
     myConfig.entry = utils.getEntries(path.join(__dirname, `./src/pages/${mypath}/**/main.js`))
     const baseUrl = `http://${host}:${port}/`
-    const devServer = new WebpackDevServer(webpack(myConfig), {
-      hot: true
-    });
+    const devServer = new WebpackDevServer(webpack(myConfig), myConfig.devServer);
     devServer.listen(port, host, function (err) {
       callback();
       if (err) throw new gutil.PluginError('webpack-dev-server', err);
@@ -62,7 +80,9 @@ gulp.task('dev', gulp.series('renew', (callback) => {
   })
 }));
 
-gulp.task('build', gulp.series('renew', (callback) => {
+gulp.task('build', gulp.series('init', 'renew', (callback) => {
+  var webpackProdConfig = require('./build/webpack.prod.conf');
+  var config = require('./config')
   const spinner = ora('building for production...')
   spinner.start()
   rm(path.join(config.build.assetsRoot), err => {

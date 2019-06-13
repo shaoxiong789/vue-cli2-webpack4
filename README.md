@@ -15,6 +15,8 @@ gulp dev --port=[port] --path=[path]
 ```
 path为要启动的项目路径，默认是全部启动
 
+`config/proxy.js`文件是项目初始化时自动创建的代理配置文件，不被纳入git管理，请根据个人情况自行修改
+
 ## 发布构建
 
 ``` bash

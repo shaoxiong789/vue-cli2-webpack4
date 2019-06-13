@@ -4,7 +4,7 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-const entries = utils.getEntries(path.join(__dirname, '../src/pages/**/main.js'))
+const entries = utils.getEntries(path.join(__dirname, '../src/pages/**/main.*'))
 const HtmlInjectForCDNPlugin = require('./HtmlInjectForCDNPlugin')
 const md5 = require('md5')
 
@@ -33,7 +33,7 @@ module.exports = {
       config.build.assetsPublicPath : config.dev.assetsPublicPath
   },
   resolve: {
-    extensions: ['.js', '.vue', '.json'],
+    extensions: ['.js', ".ts", ".tsx", '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
@@ -58,13 +58,22 @@ module.exports = {
         ]
       },
       {
-        test: /\.js$/,
-        loader: 'babel-loader',
+        test: /\.(tsx|ts|js)?$/,
         include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')],
         exclude: file => (
           /node_modules/.test(file) &&
           !/\.vue\.js/.test(file)
-        )
+        ),
+        type: 'javascript/auto',
+        use: [{
+          loader: 'ts-loader',
+          options: {
+              appendTsSuffixTo: [/\.vue$/],
+              transpileOnly: true
+          }
+        }, {
+          loader: 'babel-loader',
+        }]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
