@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "checkv": "ncu -u && npm install",
-    "dev": "gulp init && webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "dev": "gulp dev",
     "start": "gulp dev --port=8080",
     "build": "gulp build",
     "lint": "eslint --fix --ext .js,.vue src",
